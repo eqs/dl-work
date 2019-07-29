@@ -39,6 +39,16 @@ ENV LD_LIBRARY_PATH /usr/local/cuda-10.0/lib64:/usr/local/cuda-10.0/extras/CUPTI
 
 WORKDIR /work
 
+RUN sudo apt-get install -y protobuf-compiler
+RUN sudo apt-get install -y ffmpeg
+RUN sudo apt-get install -y pkg-config
+
+RUN echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib' >> /home/ubuntu/.bashrc
+
+# ------------------------------------------------------------
+# Install Python packages
+# ------------------------------------------------------------
+
 RUN pip install future six tensorboardX
 RUN pip install --upgrade --force-reinstall matplotlib
 
@@ -49,11 +59,6 @@ RUN conda install -c pytorch pytorch torchvision ignite
 RUN conda install cudnn
 
 RUN pip install opencv-python
-RUN sudo apt-get install -y protobuf-compiler
-RUN sudo apt-get install -y ffmpeg
-RUN sudo apt-get install -y pkg-config
-
-RUN echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib' >> /home/ubuntu/.bashrc
 
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
